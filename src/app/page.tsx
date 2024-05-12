@@ -37,7 +37,7 @@ export default function Home() {
     setBarData([]);
     const fixedAdmin = frequencyTotal(frequency, adminDollar);
 
-    const { feeData, growthData } = calculateCompoundInterest(
+    const { feeData, growthData, initialFee } = calculateCompoundInterest(
       balance,
       growthRate,
       years,
@@ -46,7 +46,7 @@ export default function Home() {
       fixedAdmin,
       investmentPercentage
     );
-
+    setTotalFees(initialFee);
     setChartData(feeData);
     setBarData(growthData);
   }, [balance, adminPercentage, adminDollar, investmentPercentage, frequency]);
@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <main className="bg-tremor-background-muted grow">
       <div className="container py-4 flex flex-wrap gap-4">
-        <Card className=" min-w-[250px] lg:max-w-[400px]">
+        <Card className=" min-w-[250px] lg:max-w-[400px] ">
           <h2 className="mb-1 text-slate-900 text-lg col-span-2">Superfund</h2>
 
           <div className="grid gap-2 grid-cols-2">
@@ -119,9 +119,17 @@ export default function Home() {
               />
             </div>
           </div>
+          <Divider className="col-span-2" />
+
+          <div className="gap-2 grid-cols-2 text-right">
+            <strong className="text-2xl">
+              {formatAsCurrency(totalFees)} pa
+            </strong>{" "}
+            <span>({(totalFees / balance) * 100}%)</span>
+          </div>
         </Card>
 
-        <div className="grow space-y-4 min-w-[400px]">
+        <div className="grow min-w-[400px]">
           <Card>
             <h2 className="mb-2 text-slate-900 text-xl">Fees Paid</h2>
             <LineChart
@@ -134,7 +142,7 @@ export default function Home() {
             />
           </Card>
 
-          <Card>
+          {/* <Card>
             <h2 className="mb-2 text-slate-900 text-xl">Balance</h2>
             <BarChart
               className="h-64 w-full"
@@ -144,7 +152,7 @@ export default function Home() {
               colors={["green"]}
               valueFormatter={formatAsCurrency}
             />
-          </Card>
+          </Card> */}
         </div>
       </div>
     </main>

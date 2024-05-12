@@ -1,7 +1,6 @@
 import { NumberInput, TextInput } from "@tremor/react";
 import { formatAsPercentage, parsePercentage } from "@/lib/utils";
 import React, { SetStateAction, Dispatch } from "react";
-import { Percent } from "lucide-react";
 
 export default function PercentageInput({
   name,

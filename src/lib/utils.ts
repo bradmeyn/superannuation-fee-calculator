@@ -95,6 +95,12 @@ export function calculateCompoundInterest(
   const cumulatedFees: number[] = [];
   let feeData: any[] = [];
   let growthData: any[] = [];
+  let initialFee = calculateFees(
+    totalValue,
+    adminPercentage,
+    adminDollar,
+    investmentPercentage
+  );
 
   for (let i = 0; i < years; i++) {
     let adminFee = feeCap ? Math.min(adminDollar, feeCap) : adminDollar;
@@ -140,6 +146,7 @@ export function calculateCompoundInterest(
   return {
     growthData,
     feeData,
+    initialFee,
   };
 }
 
